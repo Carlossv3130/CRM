@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ cliente['nombre'] }}</title>
+</head>
+<body>
+    <h1>Cliente: {{ cliente['nombre'] }}</h1>
+    <p>Email: {{ cliente['email'] }}</p>
+    <p>Teléfono: {{ cliente['telefono'] }}</p>
+
+    <h2>Interacciones</h2>
+    <ul>
+        {% for interaccion in cliente['interacciones'] %}
+            <li>{{ interaccion['descripcion'] }} - {{ interaccion['fecha'].strftime('%Y-%m-%d %H:%M:%S') }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Contratos</h2>
+    <ul>
+        {% for contrato in cliente['contratos'] %}
+            <li>{{ contrato['descripcion'] }} - {{ contrato['fecha_inicio'].strftime('%Y-%m-%d') }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Agregar Interacción</h3>
+    <form action="/add_interaction/{{ cliente['_id'] }}" method="POST">
+        <label for="descripcion">Descripción:</label>
+        <input type="text" id="descripcion" name="descripcion" required><br><br>
+        <button type="submit">Agregar Interacción</button>
+    </form>
+
+    <h3>Agregar Contrato</h3>
+    <form action="/add_contract/{{ cliente['_id'] }}" method="POST">
+        <label for="descripcion">Descripción:</label>
+        <input type="text" id="descripcion" name="descripcion" required><br><br>
+        <button type="submit">Agregar Contrato</button>
+    </form>
+</body>
+</html>
